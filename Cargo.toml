@@ -1,0 +1,8 @@
+[package]
+name = "engine_api"
+description = "Provides an API to interface with the Bedrock Engine in Rust"
+authors = ["Kalcor"]
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
