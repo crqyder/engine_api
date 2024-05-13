@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::fmt::Debug;
+use std::ops::{Deref, DerefMut};
 
 use super::NBT;
 
@@ -61,11 +62,22 @@ macro_rules! compound {
     }};
 }
 
-/*
-    Implement Debug trait for Compound object for pretty printing the inner values.
-*/
 impl Debug for Compound {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}", self.map)
+    }
+}
+
+impl Deref for Compound {
+    type Target = HashMap<String, NBT>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.map
+    }
+}
+
+impl DerefMut for Compound {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.map
     }
 }

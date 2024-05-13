@@ -1,19 +1,22 @@
-use std::fmt::Debug;
+use std::{
+    fmt::Debug,
+    ops::{Deref, DerefMut},
+};
 
 use super::{Tag, NBT};
 
 /// List represents a collection of NBT objects. It is a homogenous collection of NBT objects, in other
 /// words, objects of same type only.
 pub struct List {
-    id: Tag,
+    tag: Tag,
     list: Vec<NBT>,
 }
 
 impl List {
     /// Creates and returns a new List object with the provided type of objects
-    pub fn new(id: Tag) -> Self {
+    pub fn new(tag: Tag) -> Self {
         Self {
-            id,
+            tag,
             list: Vec::new(),
         }
     }
@@ -32,7 +35,7 @@ impl List {
 
     /// Puts the provided NBT object at the end of the list.
     pub fn put(&mut self, nbt: NBT) {
-        if self.id != nbt.id() {
+        if self.tag != nbt.tag() {
             return;
         }
 
@@ -41,7 +44,7 @@ impl List {
 
     /// Inserts the provided NBT object at the provided index.
     pub fn insert(&mut self, index: usize, nbt: NBT) {
-        if self.id != nbt.id() {
+        if self.tag != nbt.tag() {
             return;
         }
 
@@ -67,11 +70,22 @@ macro_rules! list {
     }};
 }
 
-/*
-    Implement Debug trait for List object for pretty printing the inner values.
-*/
 impl Debug for List {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}", self.list)
+    }
+}
+
+impl Deref for List {
+    type Target = Vec<NBT>;
+
+    fn deref(&self) -> &Self::Target {
+        &self.list
+    }
+}
+
+impl DerefMut for List {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.list
     }
 }

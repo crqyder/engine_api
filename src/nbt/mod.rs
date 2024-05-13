@@ -25,30 +25,44 @@ macro_rules! generate_nbt {
         }
 
         impl NBT {
-            /// Returns the ID of the NBT object.
-            pub fn id(&self) -> Tag {
+            /// Returns the Tag of the NBT object.
+            pub fn tag(&self) -> Tag {
                 match self {
                     $(NBT::$variant(_) => Tag::$variant,)*
                 }
             }
         }
 
-        /*
-            This macro is used to generate From trait implementations for [`NBT`] to inner types and vice versa
-            as well as provide API methods on the [`NBT`] to get reference and mutable reference to the said
-            inner types
-        */
         $(
             impl_nbt!($variant, $type, $as, $as_mut);
         )*
 
-        /*
-            Implement Debug trait for NBT object for pretty printing the inner values.
-        */
         impl Debug for NBT {
             fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
                 match self {
                     $(NBT::$variant(value) => write!(f, "{:?}", value),)*
+                }
+            }
+        }
+
+        impl Tag {
+            /// Converts the provided raw byte into the Tag and returns it
+            pub fn from_byte(byte: u8) -> Option<Self> {
+                match byte {
+                    0 => Some(Tag::End),
+                    1 => Some(Tag::Byte),
+                    2 => Some(Tag::Short),
+                    3 => Some(Tag::Int),
+                    4 => Some(Tag::Long),
+                    5 => Some(Tag::Float),
+                    6 => Some(Tag::Double),
+                    7 => Some(Tag::ByteArray),
+                    8 => Some(Tag::String),
+                    9 => Some(Tag::List),
+                    10 => Some(Tag::Compound),
+                    11 => Some(Tag::IntArray),
+                    12 => Some(Tag::LongArray),
+                    _ => None,
                 }
             }
         }
