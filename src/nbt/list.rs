@@ -22,6 +22,11 @@ impl List {
         }
     }
 
+    /// Returns the type of NBT objects contained by the List.
+    pub fn tag(&self) -> Tag {
+        self.tag
+    }
+
     /// Gets a reference to the value at provided index.
     pub fn get(&self, index: usize) -> Option<&NBT> {
         let val = self.list.get(index)?;
