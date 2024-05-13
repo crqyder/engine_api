@@ -6,6 +6,7 @@ use super::NBT;
 
 /// Compound represents a NBT compound which contains a mapping of Key-Value based values.
 /// Key is always of type String and Value is of type NBT.
+#[derive(PartialEq, Clone)]
 pub struct Compound {
     map: HashMap<String, NBT>,
 }

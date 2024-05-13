@@ -7,6 +7,7 @@ use super::{Tag, NBT};
 
 /// List represents a collection of NBT objects. It is a homogenous collection of NBT objects, in other
 /// words, objects of same type only.
+#[derive(PartialEq, Clone)]
 pub struct List {
     tag: Tag,
     list: Vec<NBT>,

@@ -10,7 +10,7 @@ macro_rules! generate_nbt {
     ($($variant:ident => $type:ty, $as:ident, $as_mut:ident),*) => {
         /// Tag is an enumeration of NBT Tags. It is used as an identifier for reading and writing NBT objects
         /// to identify what type of [`NBT`] object we are reading or writing.
-        #[derive(Debug, PartialEq)]
+        #[derive(Debug, PartialEq, Clone, Copy)]
         #[repr(u8)]
         pub enum Tag {
             End,
@@ -20,6 +20,7 @@ macro_rules! generate_nbt {
         /// NBT is an implementation of a NBT Object. Each NBT Object has a unique identifier [`Tag`] associated
         /// with it. NBT is an enumeration of various wrappers for data types that can be written or read over NBT.
         /// From trait is implemented for these inner types to form a [`NBT`] object and vice-versa for easier conversions.
+        #[derive(PartialEq, Clone)]
         pub enum NBT {
             $($variant($type),)*
         }
