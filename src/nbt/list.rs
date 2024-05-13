@@ -22,6 +22,15 @@ impl List {
         }
     }
 
+    /// Creates and returns a new List object with the provided type and the specified
+    /// capacity.
+    pub fn with_capacity(tag: Tag, cap: usize) -> Self {
+        Self {
+            tag,
+            list: Vec::with_capacity(cap),
+        }
+    }
+
     /// Returns the type of NBT objects contained by the List.
     pub fn tag(&self) -> Tag {
         self.tag
