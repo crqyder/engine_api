@@ -7,7 +7,7 @@
 macro_rules! generate {
     ($name:ident, $type:ty) => {
         #[allow(non_camel_case_types)]
-        #[derive(PartialEq)]
+        #[derive(PartialEq, Eq)]
         pub struct $name {
             val: $type,
         }
