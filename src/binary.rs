@@ -63,7 +63,7 @@ macro_rules! generate {
 }
 
 generate!(u24, u32);
-generate!(v32, u32);
-generate!(w32, i32);
-generate!(v64, u64);
-generate!(w64, i64);
+generate!(w32, u32);
+generate!(v32, i32);
+generate!(w64, u64);
+generate!(v64, i64);
